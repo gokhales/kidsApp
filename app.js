@@ -46,16 +46,25 @@ class StoryApp {
         const voices = window.speechSynthesis.getVoices();
         if (voices.length === 0) return;
 
-        // Try to find a friendly female voice
-        // Common high-quality names on iPad/Mac/Windows
-        this.preferredVoice = voices.find(v => 
-            v.name.includes('Siri') || 
-            v.name.includes('Samantha') || 
-            v.name.includes('Victoria') || 
-            v.name.includes('Google UK English Female') ||
-            v.name.includes('Google US English') || // Often female by default
-            v.name.toLowerCase().includes('female')
-        ) || voices[0];
+        // Try to find a high-quality "sweet" female voice
+        // We prioritize names that are known to be high-quality on iOS/macOS/Windows
+        const preferredNames = ['Siri', 'Samantha', 'Victoria', 'Karen', 'Moira'];
+        
+        // First, check for "enhanced" or "premium" versions which sound much sweeter
+        let foundVoice = voices.find(v => (v.name.includes('Enhanced') || v.name.includes('Premium')) && 
+            preferredNames.some(name => v.name.includes(name)));
+
+        // Fallback to standard high-quality female voices
+        if (!foundVoice) {
+            foundVoice = voices.find(v => preferredNames.some(name => v.name.includes(name)));
+        }
+
+        // Fallback to any female voice
+        if (!foundVoice) {
+            foundVoice = voices.find(v => v.name.toLowerCase().includes('female'));
+        }
+
+        this.preferredVoice = foundVoice || voices[0];
     }
 
     attachEventListeners() {
@@ -191,9 +200,9 @@ class StoryApp {
                 utterance.voice = this.preferredVoice;
             }
 
-            // Gentle and soothing tone settings
-            utterance.rate = 0.85; // Slower for a calming, clear effect
-            utterance.pitch = 1.0; // More natural, gentle pitch
+            // Gentle and "Sweet" tone settings
+            utterance.rate = 0.85; // Keep it soothing and slow
+            utterance.pitch = 1.2; // Increase pitch slightly for a "sweeter" sound
 
             utterance.onend = () => {
                 if (callback) callback();
