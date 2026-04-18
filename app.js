@@ -191,9 +191,9 @@ class StoryApp {
                 utterance.voice = this.preferredVoice;
             }
 
-            // Exciting tone settings
-            utterance.rate = 1.05; // Slightly faster for energy
-            utterance.pitch = 1.3; // Higher pitch for a "happy/exciting" child-friendly sound
+            // Gentle and soothing tone settings
+            utterance.rate = 0.85; // Slower for a calming, clear effect
+            utterance.pitch = 1.0; // More natural, gentle pitch
 
             utterance.onend = () => {
                 if (callback) callback();
