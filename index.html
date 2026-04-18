@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>My Story Time</title>
+    <!-- Modern, friendly font for kids -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Library View -->
+        <section id="library-view" class="view active">
+            <header>
+                <h1>Pick a Story</h1>
+            </header>
+            <div id="story-grid" class="grid-container">
+                <!-- Stories will be injected here -->
+            </div>
+        </section>
+
+        <!-- Story View -->
+        <section id="story-view" class="view">
+            <div class="content">
+                <div id="page-image-container">
+                    <img id="page-image" src="" alt="Story illustration">
+                </div>
+                <div class="text-container">
+                    <p id="page-text"></p>
+                </div>
+                <div class="controls">
+                    <button id="next-page-btn" class="primary-btn hidden">Next</button>
+                    <button id="back-to-library-btn" class="secondary-btn">Back</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz View -->
+        <section id="quiz-view" class="view">
+            <div class="quiz-content">
+                <h2 id="quiz-question">Question goes here</h2>
+                <div id="options-container">
+                    <!-- Multiple choice buttons here -->
+                </div>
+                <div id="quiz-feedback" class="feedback-container hidden">
+                    <p id="feedback-message"></p>
+                    <button id="quiz-next-btn" class="primary-btn">Next</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>
