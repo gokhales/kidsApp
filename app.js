@@ -106,12 +106,15 @@ class StoryApp {
     renderPage() {
         const page = this.currentStory.pages[this.currentPageIndex];
         this.pageImage.src = page.image;
-        this.pageText.textContent = page.text;
+        
+        // Wrap words in spans for highlighting
+        this.pageText.innerHTML = page.text.split(' ').map(word => `<span class="word">${word}</span>`).join(' ');
+        
         this.nextPageBtn.classList.add('hidden');
         
         this.speak(page.text, () => {
             this.nextPageBtn.classList.remove('hidden');
-        });
+        }, this.pageText);
     }
 
     nextPage() {
@@ -189,7 +192,7 @@ class StoryApp {
         });
     }
 
-    speak(text, callback) {
+    speak(text, callback, element) {
         return new Promise(resolve => {
             // Cancel any current speech
             window.speechSynthesis.cancel();
@@ -204,7 +207,28 @@ class StoryApp {
             utterance.rate = 0.85; // Keep it soothing and slow
             utterance.pitch = 1.2; // Increase pitch slightly for a "sweeter" sound
 
+            if (element) {
+                const spans = element.querySelectorAll('.word');
+                utterance.onboundary = (event) => {
+                    if (event.name === 'word') {
+                        // Find which word index we are at
+                        const charIndex = event.charIndex;
+                        const textUntilBoundary = text.substring(0, charIndex);
+                        const wordIndex = textUntilBoundary.split(' ').length - 1;
+
+                        // Highlight the corresponding span
+                        spans.forEach((span, i) => {
+                            span.classList.toggle('highlight', i === wordIndex);
+                        });
+                    }
+                };
+            }
+
             utterance.onend = () => {
+                if (element) {
+                    const spans = element.querySelectorAll('.word');
+                    spans.forEach(span => span.classList.remove('highlight'));
+                }
                 if (callback) callback();
                 resolve();
             };

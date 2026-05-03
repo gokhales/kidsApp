@@ -137,6 +137,20 @@ header h1 {
     font-weight: 600;
 }
 
+#page-text span {
+    display: inline-block;
+    margin-right: 0.3rem;
+    transition: all 0.2s;
+    border-radius: 8px;
+    padding: 0 4px;
+}
+
+#page-text span.highlight {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+}
+
 /* Button Controls */
 .controls {
     display: flex;
