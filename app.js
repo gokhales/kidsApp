@@ -204,7 +204,7 @@ class StoryApp {
             }
 
             // Gentle and "Sweet" tone settings
-            utterance.rate = 0.85; // Keep it soothing and slow
+            utterance.rate = 0.5; // Very slow for maximum clarity
             utterance.pitch = 1.2; // Increase pitch slightly for a "sweeter" sound
 
             if (element) {
